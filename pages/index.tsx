@@ -1,16 +1,13 @@
-import type { NextPage } from "next";
-import styles from "../styles/Home.module.css";
+import Layout from "../components/layout"
 
-const Home: NextPage = () => {
+export default function IndexPage() {
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="/welcome">Tauri Strava App!</a>
-        </h1>
-      </main>
-    </div>
-  );
-};
-
-export default Home;
+    <Layout>
+      <h1>NextAuth.js Example</h1>
+      <p>
+        This is an example site to demonstrate how to use{" "}
+        <a href="https://next-auth.js.org">NextAuth.js</a> for authentication.
+      </p>
+    </Layout>
+  )
+}
