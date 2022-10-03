@@ -30,7 +30,8 @@ export default function Header() {
                 className={styles.buttonPrimary}
                 onClick={(e) => {
                   e.preventDefault()
-                  signIn()
+                  signIn('strava', {
+                  });
                 }}
               >
                 Sign in
@@ -74,11 +75,6 @@ export default function Header() {
           <li className={styles.navItem}>
             <Link href="/client">
               <a>Client</a>
-            </Link>
-          </li>
-          <li className={styles.navItem}>
-            <Link href="/server">
-              <a>Server</a>
             </Link>
           </li>
           <li className={styles.navItem}>

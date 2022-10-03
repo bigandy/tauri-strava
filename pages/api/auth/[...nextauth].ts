@@ -1,9 +1,5 @@
 import NextAuth, { NextAuthOptions } from "next-auth"
-// import GoogleProvider from "next-auth/providers/google"
-// import FacebookProvider from "next-auth/providers/facebook"
-// import GithubProvider from "next-auth/providers/github"
-// import TwitterProvider from "next-auth/providers/twitter"
-// import Auth0Provider from "next-auth/providers/auth0"
+
 import StravaProvider from "next-auth/providers/strava"
 
 
@@ -18,16 +14,15 @@ export const authOptions: NextAuthOptions = {
   // https://next-auth.js.org/configuration/providers/oauth
   providers: [
     StravaProvider({
+      name: "Strava",
+      id: "strava",
       clientId: process.env.STRAVA_ID,
       clientSecret: process.env.STRAVA_SECRET,
-      // scope: ['read_all', 'profile:read_all', 'activity:read_all', 'activity:write'],
       authorization: { params: { scope: "profile:read_all,activity:read_all,activity:write" } },
     }),
   ],
-  // theme: {
-  //   colorScheme: "light",
-  // },
   secret: process.env.NEXTAUTH_SECRET,
+  database: process.env.SUPABASE_URL,
   session: { strategy: 'jwt' },
   callbacks: {
   async jwt({ token, user, account }) {
