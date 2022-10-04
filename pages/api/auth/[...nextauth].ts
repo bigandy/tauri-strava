@@ -64,53 +64,13 @@ export const authOptions: NextAuthOptions = {
       session.error = token.error;
       return session;
     },
-  },
-  events: {
-    async linkAccount({ user, providerAccount }) {
-      if (providerAccount.provider == "slack") {
-        const account = await prisma.account.findUnique({
-          where: {
-            providerId_providerAccountId: {
-              //@ts-ignore
-              providerAccountId: providerAccount?.id,
-              providerId: "slack",
-            },
-          },
-        });
 
-        await prisma.webhook.upsert({
-          where: {
-            accountId_teamNamespace: {
-              accountId: account.id,
-              //@ts-ignore
-              teamNamespace: user?.selectedTeam,
-            },
-          },
-          create: {
-            //@ts-ignore
-            config: providerAccount?.incoming_webhook,
-            team: {
-              connect: {
-                //@ts-ignore
-                namespace: user.selectedTeam,
-              },
-            },
-            account: {
-              connect: {
-                providerId_providerAccountId: {
-                  //@ts-ignore
-                  providerAccountId: providerAccount.id,
-                  providerId: "slack",
-                },
-              },
-            },
-          },
-          update: {
-            //@ts-ignore
-            config: providerAccount?.incoming_webhook,
-          },
-        });
-      }
+    signIn: async ({ user, account, profile }) => {
+      console.log({ user, account, profile });
+
+      account.athlete = undefined; // don't want this field in the DB so removing here.
+
+      return Promise.resolve(true);
     },
   },
 };
